@@ -5,7 +5,7 @@ networks:
 
 services:
     website-db:
-        image: mysql:latest
+        image: mysql:5.6.34
         command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_ROOT_PASSWORD: secret

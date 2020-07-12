@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import connection, models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
@@ -67,6 +67,9 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
+    class Meta:
+        db_table = "account"
+
     def get_full_name(self):
         return self.login
 
@@ -81,6 +84,20 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def set_password(self, raw_password):
+        self.password = self._get_password(raw_password)
+        self._password = raw_password
+
+    def _get_password(self, raw_password):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT PASSWORD(%s)", [raw_password])
+            row = cursor.fetchone()
+            return row[0]
+
+    def check_password(self, raw_password):
+        password = self._get_password(raw_password)
+        return self.password == raw_password
 
     @property
     def is_staff(self):
