@@ -1,8 +1,10 @@
-from django.db import connection, models
+import re
+
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-
+from django.core.validators import RegexValidator
+from django.db import connection, models
 
 BAN_CHOICES = [
     ('SECOND', 'SECOND'),
@@ -52,7 +54,12 @@ class User(AbstractBaseUser):
     login = models.CharField('Login / username', max_length=30, unique=True)
     password = models.CharField('Password', max_length=45)
     email = models.EmailField('E-mail', max_length=64, unique=True)
-    social_id = models.CharField('Kod usunięcia postaci', max_length=7)
+    social_id = models.CharField('Kod usunięcia postaci', max_length=7,
+        validators=[RegexValidator(
+            regex=r'^\d*$',
+            message='Kod usunięcia postaci musi zawierać 7 cyfr',
+        )]
+    )
 
     powod = models.TextField('Powód banu', null=True, blank=True)
     banlength = models.CharField('Długość banu', max_length=30,
@@ -97,7 +104,7 @@ class User(AbstractBaseUser):
 
     def check_password(self, raw_password):
         password = self._get_password(raw_password)
-        return self.password == raw_password
+        return self.password == password
 
     @property
     def is_staff(self):
