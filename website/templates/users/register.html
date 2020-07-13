@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="form" method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors  }}
+
+    <div class="field">
+        <div class="control">
+            <label for="id_login" class="label">Login</label>
+            <input
+                type="text"
+                name="login"
+                maxlength="30"
+                class="input"
+                required=""
+                value="{{ form.login.value|default:'' }}"
+                id="id_login"
+            />
+            {{ form.login.errors }}
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label for="id_email" class="label">E-mail</label>
+            <input
+                type="email"
+                name="email"
+                maxlength="64"
+                class="input"
+                required=""
+                value="{{ form.email.value|default:'' }}"
+                id="id_email"
+            />
+            {{ form.email.errors }}
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label for="id_password1" class="label">Hasło</label>
+            <input
+                type="password"
+                name="password"
+                maxlength="64"
+                class="input"
+                required=""
+                id="id_password1"
+            />
+            {{ form.password.errors }}
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label for="id_password2" class="label">Powtórz hasło</label>
+            <input
+                type="password"
+                name="password2"
+                maxlength="64"
+                class="input"
+                required=""
+                id="id_password2"
+            />
+            {{ form.password2.errors }}
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label for="id_social_id" class="label">Kod usunięcia postaci</label>
+            <input
+                type="text"
+                name="social_id"
+                maxlength="7"
+                class="input"
+                required=""
+                value="{{ form.social_id.value|default:'' }}"
+                id="id_social_id"
+            />
+            {{ form.social_id.errors }}
+        </div>
+    </div>
+
+    <input type="submit" class="button is-primary" value="Zarejestruj" />
+</form>
+{% endblock %}

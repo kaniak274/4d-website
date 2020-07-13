@@ -56,7 +56,7 @@ class User(AbstractBaseUser):
     email = models.EmailField('E-mail', max_length=64, unique=True)
     social_id = models.CharField('Kod usunięcia postaci', max_length=7,
         validators=[RegexValidator(
-            regex=r'^\d*$',
+            regex=r'^\d{7}$',
             message='Kod usunięcia postaci musi zawierać 7 cyfr',
         )]
     )
