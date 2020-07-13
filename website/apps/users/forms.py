@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import User
 
@@ -40,9 +41,9 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError("Hasła się nie zgadzają")
 
         if len(password2) < 4:
-            raise forms.ValidationError("Hasło musi mieć co najmniej 4 znaków")        
+            raise forms.ValidationError("Hasło musi mieć co najmniej 4 znaków")
 
-        return password2
+        return password2        
 
 
 class UserAdminCreationForm(forms.ModelForm):

@@ -1,0 +1,40 @@
+<form class='form' method="POST" action="{% url "login" %}">
+    {% csrf_token %}
+    {{ login_form.non_field_errors  }}
+
+    <div class="field">
+        <div class="control">
+            <label for="id_username" class="label">Login</label>
+            <input
+                type="text"
+                name="username"
+                autofocus=""
+                autocapitalize="none"
+                autocomplete="username"
+                maxlength="30"
+                required=""
+                value="{{ login_form.username.value|default:'' }}"
+                class="input"
+                id="id_username"
+            />
+            {{ login_form.username.errors }}
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label for="id_password" class="label">Password</label>
+            <input
+                type="password"
+                name="password"
+                autocomplete="current-password"
+                required=""
+                class="input"
+                id="id_password"
+            />
+
+            {{ login_form.password.errors }}
+        </div>
+    </div>
+
+    <input type="submit" value="Zaloguj" class="button is-primary" />
+</form>

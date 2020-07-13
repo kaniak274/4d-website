@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-Home
+{% include 'users/login_form.html' %}
+
+{{ request.user.is_authenticated }}
 {% endblock %}
