@@ -14,6 +14,7 @@ module.exports = {
     context: paths.baseInputDir,
     entry: {
         app: './app.js',
+        news_preview: './scripts/news_preview',
     },
     module: {
         rules: [

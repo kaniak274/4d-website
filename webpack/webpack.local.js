@@ -9,7 +9,7 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 module.exports = webpackMerge(baseConfig, {
     output: {
         path: path.resolve(__dirname, paths.localOutputDir),
-        filename: '[name].[chunkhash].js'
+        filename: '[name].js'
     },
     plugins: [
         new WebpackAssetsManifest({

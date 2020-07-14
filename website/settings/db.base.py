@@ -16,3 +16,5 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+DATABASE_ROUTERS = ['website.settings.db_routers.Player', 'website.settings.db_routers.Account']
