@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'website.apps.common',
     'website.apps.users',
+
+    'website.apps.news',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
