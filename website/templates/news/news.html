@@ -1,0 +1,13 @@
+{% for single_news in news %}
+    <div class="news-header">
+        <h1 class="title is-size-1">{{ single_news.topic }}</h1>
+    </div>
+
+    <div class="news-content">
+        {{ single_news.content|safe }}
+    </div>
+
+    <div class="news-footer">
+        {{ single_news.date }} {{ single_news.author }}
+    </div>
+{% endfor %}

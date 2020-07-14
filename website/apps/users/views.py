@@ -3,6 +3,8 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.views.generic import CreateView, View
 
+from website.apps.news.use_cases import get_all_news
+
 from .models import User
 from .forms import RegisterForm
 
@@ -12,7 +14,8 @@ class HomeView(View):
 
     def get(self, request):
         context = {
-            'login_form': AuthenticationForm(request=request)
+            'login_form': AuthenticationForm(request=request),
+            'news': get_all_news(),
         }
 
         return render(request, self.template_name, context)
