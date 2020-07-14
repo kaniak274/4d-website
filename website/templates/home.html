@@ -2,6 +2,9 @@
 
 {% block content %}
 Home
-{% include 'users/login_form.html' %}
+
+{% if not request.user.is_authenticated %}
+    {% include 'users/login_form.html' %}
+{% endif %}
 
 {% endblock %}
