@@ -2,6 +2,7 @@ import json
 import os
 
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 from django.templatetags.static import static
 
 
@@ -71,3 +72,30 @@ def _read_manifest_file():
         raise ValueError('Manifest file do not contains valid json data.') from e
     except IOError as e:
         raise IOError('Error while reading manifest file.') from e
+
+
+def compose_email(
+    receivers,
+    subject_tpl,
+    msg_tpl,
+    subject_ctx=None,
+    msg_ctx=None,
+    reply_to=None,
+    attachments=[]):
+    sender = settings.DEFAULT_FROM_EMAIL
+    subject = loader.render_to_string(subject_tpl, subject_ctx)
+    message = loader.render_to_string(msg_tpl, msg_ctx)
+
+    email = EmailMultiAlternatives(
+        subject,
+        message,
+        sender,
+        receivers,
+        reply_to=[reply_to],
+    )
+    email.attach_alternative(message, 'text/html')
+
+    for attachment in attachments:
+        email.attach(*attachment)
+
+    email.send()
