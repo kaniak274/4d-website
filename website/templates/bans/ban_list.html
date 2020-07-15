@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for user in object_list %}
+    {{ user.banlength }}
+    {{ user.powod }}
+{% empty %}
+    Do tej pory nikt nie został zbanowany.
+{% endfor %}
+{% endblock %}
