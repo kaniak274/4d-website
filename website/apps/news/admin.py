@@ -10,7 +10,7 @@ class NewsAdmin(admin.ModelAdmin):
     search_fields = ('topic', 'author',)
 
     class Media:
-        js = (get_static_url('news_preview', 'js'), get_static_url('runtime', 'js'))
+        js = ('/static/news_preview.js', '/static/runtime.js')
 
 
 admin.site.register(News, NewsAdmin)
