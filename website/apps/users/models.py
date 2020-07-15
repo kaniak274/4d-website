@@ -1,3 +1,4 @@
+from datetime import datetime
 import re
 
 from django.contrib.auth.models import (
@@ -5,18 +6,6 @@ from django.contrib.auth.models import (
 )
 from django.core.validators import RegexValidator
 from django.db import connection, models
-
-BAN_CHOICES = [
-    ('SECOND', 'SECOND'),
-    ('MINUTE', 'MINUTE'),
-    ('HOUR', 'HOUR'),
-    ('DAY', 'DAY'),
-    ('WEEK', 'WEEK'),
-    ('MONTH', 'MONTH'),
-    ('YEAR', 'YEAR'),
-    ('PERM', 'PERM'),
-]
-
 
 OK_STATUS = 'OK'
 WEBBLK_STATUS = 'WEBBLK'
@@ -75,8 +64,7 @@ class User(AbstractBaseUser):
     )
 
     powod = models.TextField('Powód banu', null=True, blank=True)
-    banlength = models.CharField('Długość banu', max_length=30,
-        choices=BAN_CHOICES, null=True, blank=True)
+    availDt = models.DateTimeField(default=datetime(1, 1, 1))
 
     coins = models.IntegerField('SM', default=0)
 

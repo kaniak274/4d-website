@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -85,7 +86,7 @@ class CustomLoginView(LoginView):
 
 class BanListView(ListView):
     model = User
-    queryset = User.objects.filter(banlength__isnull=False)
+    queryset = User.objects.exclude(availDt=datetime(1, 1, 1))
     template_name = 'bans/ban_list.html'
     paginate_by = 20
 

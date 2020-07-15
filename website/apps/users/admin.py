@@ -20,7 +20,7 @@ class UserAdmin(BaseUserAdmin):
             'coins',
         ),}),
         ('Zezwolenia', {'fields': ('admin',)}),
-        ('Bany', {'fields': ('status', 'banlength', 'powod'),}),
+        ('Bany', {'fields': ('status', 'availDt', 'powod'),}),
     )
 
     add_fieldsets = (
