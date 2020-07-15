@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'crispy_forms',
     'mail_templated',
@@ -90,6 +91,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # system.
 try:
     from .db import *
+    from .email import *
 except ImportError:
     pass
 

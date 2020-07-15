@@ -30,7 +30,7 @@ class Player:
 
 
 class Account:
-    route_app_labels = {'auth', 'contenttypes', 'users', 'admin'}
+    route_app_labels = {'auth', 'contenttypes', 'users', 'admin', 'sites'}
 
     def db_for_read(self, model, **hints):
         if model._meta.app_label in self.route_app_labels:
