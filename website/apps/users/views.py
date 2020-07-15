@@ -3,7 +3,7 @@ import json
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordResetView
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -16,7 +16,7 @@ from website.apps.common.utils import compose_email
 from website.apps.news.use_cases import get_all_news
 
 from .models import User, OK_STATUS
-from .forms import RegisterForm
+from .forms import CustomPasswordResetForm, RegisterForm
 
 
 class HomeView(View):
@@ -105,3 +105,17 @@ def activate(request, uidb64, token):
         return HttpResponse('Twój email został potwierdzony. Teraz możesz zalogować się swoim kontem.')
     else:
         return HttpResponse('Link aktywacyjny jest zły!')
+
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
+
+    def form_invalid(self, form):
+        return super().form_invalid()
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        kwargs['data'] = json.loads(self.request.body)
+
+        return kwargs

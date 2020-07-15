@@ -1,6 +1,10 @@
-from django import forms
+import unicodedata
 
-from .models import User
+from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordResetForm
+
+from .models import User, OK_STATUS
 
 
 class RegisterForm(forms.ModelForm):
@@ -94,3 +98,21 @@ class UserAdminChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'login', 'social_id')
+
+
+def _unicode_ci_compare(s1, s2):
+    return unicodedata.normalize('NFKC', s1).casefold() == unicodedata.normalize('NFKC', s2).casefold()
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    def get_users(self, email):
+        active_users = get_user_model()._default_manager.filter(**{
+            '%s__iexact' % 'email': email,
+            'status': OK_STATUS,
+        })
+
+        return (
+            u for u in active_users
+            if u.has_usable_password() and
+            _unicode_ci_compare(email, getattr(u, 'email'))
+        )

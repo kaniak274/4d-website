@@ -64,7 +64,7 @@ class User(AbstractBaseUser):
     )
 
     powod = models.TextField('Powód banu', null=True, blank=True)
-    availDt = models.DateTimeField(default=datetime(1, 1, 1))
+    availDt = models.DateTimeField('Długość banu', default=datetime(1, 1, 1))
 
     coins = models.IntegerField('SM', default=0)
 
