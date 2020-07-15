@@ -18,8 +18,19 @@ BAN_CHOICES = [
 ]
 
 
+OK_STATUS = 'OK'
+WEBBLK_STATUS = 'WEBBLK'
+BLOCK_STATUS = 'BLOCK'
+
+STATUS_CHOICES = [
+    (OK_STATUS, 'Konto aktywne'),
+    (WEBBLK_STATUS, 'Brak aktywacji email'),
+    (BLOCK_STATUS, 'Zbanowane'),
+]
+
+
 class UserManager(BaseUserManager):
-    def create_user(self, login, email, social_id, password=None):
+    def create_user(self, login, email, social_id, password=None, status=WEBBLK_STATUS):
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -29,7 +40,8 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             login=login,
-            social_id=social_id
+            social_id=social_id,
+            status=status
         )
 
         user.set_password(password)
@@ -42,6 +54,7 @@ class UserManager(BaseUserManager):
             email,
             social_id=social_id,
             password=password,
+            status=OK_STATUS
         )
 
         user.admin = True
@@ -68,6 +81,9 @@ class User(AbstractBaseUser):
     coins = models.IntegerField('SM', default=0)
 
     admin = models.BooleanField('Admin?', default=False)
+
+    status = models.CharField('Status', max_length=8, choices=STATUS_CHOICES,
+        default=WEBBLK_STATUS)
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = ['email', 'password', 'social_id']
@@ -116,4 +132,4 @@ class User(AbstractBaseUser):
 
     @property
     def is_active(self):
-        return True
+        return self.status == OK_STATUS

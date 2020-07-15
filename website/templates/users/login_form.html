@@ -1,6 +1,15 @@
-<form class='form' method="POST" action="{% url "login" %}">
+<form class='form' method="POST" action="{% url 'login' %}">
     {% csrf_token %}
-    {{ login_form.non_field_errors  }}
+
+    {% for field, errors in login_errors.items %}
+        {% for item in errors %}
+            {% for key, error in item.items %}
+                {% if key == 'message' %}
+                    {{ error }}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
 
     <div class="field">
         <div class="control">
@@ -31,8 +40,6 @@
                 class="input"
                 id="id_password"
             />
-
-            {{ login_form.password.errors }}
         </div>
     </div>
 
