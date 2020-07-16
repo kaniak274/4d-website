@@ -1,0 +1,17 @@
+{% with page=player_ranking fetch_url="/player-ranking/" %}
+    <div class="players-ranking ranking">
+        <!--<div class="search">
+            {% include 'ranking/_search.html' %}
+        </div>-->
+
+        <div class="content">
+            <ol id="player-list" start="1" type="1">
+                {% for player in player_ranking.object_list %}
+                    <li>{{ player.name }} {{ player.kills }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        {% include 'ranking/_pagination.html' %}
+    </div>
+{% endwith %}

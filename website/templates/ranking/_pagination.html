@@ -1,0 +1,39 @@
+<nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+    {% if page.number != 1 %}
+        <button
+            class="pagination-previous ranking-paginator"
+            data-fetch-url="{{ fetch_url }}"
+            data-page="{{ page.previous_page_number }}"
+        >
+            Poprzednia
+        </button>
+    {% else %}
+        <button
+            class="pagination-previous ranking-paginator"
+            data-fetch-url="{{ fetch_url }}"
+            data-page="0"
+            disabled
+        >
+            Poprzednia
+        </button>
+    {% endif %}
+
+    {% if page.has_next %}
+        <button
+            class="pagination-next ranking-paginator"
+            data-fetch-url="{{ fetch_url }}"
+            data-page="{{ page.next_page_number }}"
+        >
+            Następna
+        </button>
+    {% else %}
+        <button
+            class="pagination-next ranking-paginator"
+            data-fetch-url="{{ fetch_url }}"
+            data-page="0"
+            disabled
+        >
+            Następna
+        </button>
+    {% endif %}
+</nav>

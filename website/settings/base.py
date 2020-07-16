@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'mail_templated',
     'django_extensions',
+    'rest_framework',
 
     'website.apps.common',
     'website.apps.users',
 
     'website.apps.news',
+    'website.apps.ranking',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

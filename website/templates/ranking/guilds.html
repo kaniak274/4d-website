@@ -1,0 +1,15 @@
+{% with page=guild_ranking fetch_url="/guild-ranking/" %}
+    <div class="guild-ranking ranking">
+        <!--<div class="search">
+            {% include 'ranking/_search.html' %}
+        </div>-->
+
+        <ol start="1">
+            {% for guild in guild_ranking.object_list %}
+                <li>{{ guild.guild_name }} {{ guild.points }}</li>
+            {% endfor %}
+        </ol>
+
+        {% include 'ranking/_pagination.html' %}
+    </div>
+{% endwith %}

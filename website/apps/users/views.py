@@ -14,6 +14,7 @@ from django.views.generic import CreateView, ListView, View
 
 from website.apps.common.utils import compose_email
 from website.apps.news.use_cases import get_all_news
+from website.apps.ranking.use_cases import get_guilds_ranking, get_players_ranking
 
 from .models import User, OK_STATUS
 from .forms import CustomPasswordResetForm, RegisterForm
@@ -33,6 +34,8 @@ class HomeView(View):
             'login_form': AuthenticationForm(request=request),
             'news': get_all_news(),
             'login_errors': errors,
+            'player_ranking': get_players_ranking(),
+            'guild_ranking': get_guilds_ranking(),
         }
 
         return render(request, self.template_name, context)
