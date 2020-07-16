@@ -10,12 +10,12 @@ Home
 {% include 'news/news.html' %}
 
 <div class="rankink-panel">
-    <div class="ranking-header">
-        <button class="button is-primary" data-hide="guilds">Players</button>
-        <button class="button is-primary" data-hide="players">Guilds</button>
-    </div>
-    {% include 'ranking/players.html' %}
-    {% include 'ranking/guilds.html' %}
+    {% with show_no_lifes=False %}
+        {% include 'ranking/switch_buttons.html' %}
+    {% endwith %}
+
+    {% include 'ranking/players_home.html' %}
+    {% include 'ranking/guilds_home.html' %}
 </div>
 
 {% endblock %}

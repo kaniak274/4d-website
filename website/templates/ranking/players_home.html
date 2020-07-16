@@ -1,0 +1,9 @@
+<div class="players-ranking ranking">
+    <div class="content">
+        <ol start="1" type="1" class="ranking-list">
+            {% for player in player_ranking.object_list %}
+                <li>{{ player.name }} {{ player.kills }} {{ player.job_to_class }} {{ player.get_empire }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>

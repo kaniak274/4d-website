@@ -1,0 +1,9 @@
+<div class="guild-ranking ranking">
+    <div class="content">
+        <ol type="1" start="1" class="ranking-list">
+            {% for guild in guild_ranking.object_list %}
+                <li>{{ guild.name }} {{ guild.ladder_point }} {{ guild.win }} {{ guild.draw }} {{ guild.loss }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>

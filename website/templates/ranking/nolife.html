@@ -1,5 +1,5 @@
-{% with page=player_ranking fetch_url="/player-ranking/" %}
-    <div class="players-ranking ranking">
+{% with page=nolifes_ranking fetch_url="/nolife-ranking/" %}
+    <div class="nolife-ranking ranking">
         <div class="search">
             {% include 'ranking/_search.html' %}
         </div>
@@ -10,17 +10,17 @@
                     <tr>
                         <th>Miejsce</th>
                         <th>Nazwa postaci</th>
-                        <th>Liczba zabójstw</th>
+                        <th>Spędzony czas</th>
                         <th>Klasa</th>
                         <th>Królestwo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for player in player_ranking.object_list %}
+                    {% for player in nolifes_ranking.object_list %}
                         <tr>
                             <td>{{ player.place }}</td>
                             <td>{{ player.name }}</td>
-                            <td>{{ player.kills }}</td>
+                            <td>{{ player.playtime_label }}</td>
                             <td>{{ player.job_to_class }}</td>
                             <td>{{ player.get_empire }}</td>
                         </tr>

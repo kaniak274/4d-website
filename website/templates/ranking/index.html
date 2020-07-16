@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="rankink-panel">
+    {% with show_no_lifes=True %}
+        {% include 'ranking/switch_buttons.html' %}
+    {% endwith %}
+
+    {% include 'ranking/players.html' %}
+    {% include 'ranking/guilds.html' %}
+    {% include 'ranking/nolife.html' %}
+</div>
+{% endblock %}

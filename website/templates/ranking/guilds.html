@@ -1,15 +1,34 @@
 {% with page=guild_ranking fetch_url="/guild-ranking/" %}
     <div class="guild-ranking ranking">
-        <!--<div class="search">
+        <div class="search">
             {% include 'ranking/_search.html' %}
-        </div>-->
+        </div>
 
         <div class="content">
-            <ol type="1" start="1" class="ranking-list">
-                {% for guild in guild_ranking.object_list %}
-                    <li>{{ guild.guild_name }} {{ guild.points }}</li>
-                {% endfor %}
-            </ol>
+            <table class="table ranking-list">
+                <thead>
+                    <tr>
+                        <th>Miejsce</th>
+                        <th>Nazwa gildii</th>
+                        <th>Punkty</th>
+                        <th>Zwycięstwa</th>
+                        <th>Remisy</th>
+                        <th>Przegrane</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for guild in guild_ranking.object_list %}
+                        <tr>
+                            <td>{{ guild.place }}</td>
+                            <td>{{ guild.name }}</td>
+                            <td>{{ guild.ladder_point }}</td>
+                            <td>{{ guild.win }}</td>
+                            <td>{{ guild.draw }}</td>
+                            <td>{{ guild.loss }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
 
         {% include 'ranking/_pagination.html' %}
