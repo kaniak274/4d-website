@@ -9,6 +9,13 @@ Home
 
 {% include 'news/news.html' %}
 
-{% include 'ranking/players.html' %}
+<div class="rankink-panel">
+    <div class="ranking-header">
+        <button class="button is-primary" data-hide="guilds">Players</button>
+        <button class="button is-primary" data-hide="players">Guilds</button>
+    </div>
+    {% include 'ranking/players.html' %}
+    {% include 'ranking/guilds.html' %}
+</div>
 
 {% endblock %}

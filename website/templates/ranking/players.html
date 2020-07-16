@@ -5,7 +5,7 @@
         </div>-->
 
         <div class="content">
-            <ol id="player-list" start="1" type="1">
+            <ol start="1" type="1" class="ranking-list">
                 {% for player in player_ranking.object_list %}
                     <li>{{ player.name }} {{ player.kills }}</li>
                 {% endfor %}

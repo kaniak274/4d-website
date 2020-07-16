@@ -9,6 +9,11 @@ const closeModalListener = () => {
 
 const link = document.getElementById('password-reset');
 
+const guildRanking = document.getElementsByClassName('guild-ranking')[0];
+const playerRanking = document.getElementsByClassName('players-ranking')[0];
+
+guildRanking.style.display = "none";
+
 if (link) {
     link.addEventListener('click', ({ target: { id }}) => {
         const modal = document.getElementById(`${id}-modal`);
@@ -18,7 +23,7 @@ if (link) {
         modal.querySelector('.delete').addEventListener('click', closeModalListener);
         modal.querySelector('.cancel').addEventListener('click', closeModalListener);
     });
-    
+
     const sendEmailButton = document.getElementsByClassName('send-email')[0];
     sendEmailButton.addEventListener('click', () => {
         const email = document.querySelector('input[type="email"]').value.trim();
@@ -41,18 +46,23 @@ if (link) {
 }
 
 const updateRanking = (data, page) => {
-    const ranks = document.getElementById('player-list');
+    const rankingList = Array.from(document.getElementsByClassName('ranking-list'))
+        .find((el) => el.parentNode.parentNode.style.display !== "none");
 
-    ranks.innerHTML = "";
+    rankingList.innerHTML = "";
 
     data.results.forEach((el) => {
-        ranks.innerHTML += `<li>${el.name} ${el.kills}</li>`
+        if (el.kills) {
+            rankingList.innerHTML += `<li>${el.name} ${el.kills}</li>`
+        } else {
+            rankingList.innerHTML += `<li>${el.guild_name} ${el.points}</li>`
+        }
     });
 
-    const nextButton = ranks.parentNode.parentNode.querySelector('.pagination-next');
-    const previousButton = ranks.parentNode.parentNode.querySelector('.pagination-previous');
+    const nextButton = rankingList.parentNode.parentNode.querySelector('.pagination-next');
+    const previousButton = rankingList.parentNode.parentNode.querySelector('.pagination-previous');
 
-    ranks.start = (page * 10) - 10 + 1;
+    rankingList.start = (page * 10) - 10 + 1;
 
     if (data.next) {
         nextButton.dataset.page = page + 1;
@@ -90,4 +100,19 @@ Array.from(document.getElementsByClassName('ranking-search'))
         el.addEventListener('change', ({ target: { value }}) => {
             sendRankingFetch(`${target.dataset.fetchUrl}?search=${value}`);
         });
+    });
+
+Array.from(document.getElementsByClassName('ranking-header')[0].children)
+    .forEach((el) => {
+        el.addEventListener('click', ({ target }) => {
+            const toHide = target.dataset.hide;
+
+            if (toHide === 'guilds') {
+                guildRanking.style.display = "none";
+                playerRanking.style.display = "";
+            } else {
+                guildRanking.style.display = "";
+                playerRanking.style.display = "none";
+            }
+        })
     });

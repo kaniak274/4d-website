@@ -4,11 +4,13 @@
             {% include 'ranking/_search.html' %}
         </div>-->
 
-        <ol start="1">
-            {% for guild in guild_ranking.object_list %}
-                <li>{{ guild.guild_name }} {{ guild.points }}</li>
-            {% endfor %}
-        </ol>
+        <div class="content">
+            <ol type="1" start="1" class="ranking-list">
+                {% for guild in guild_ranking.object_list %}
+                    <li>{{ guild.guild_name }} {{ guild.points }}</li>
+                {% endfor %}
+            </ol>
+        </div>
 
         {% include 'ranking/_pagination.html' %}
     </div>
