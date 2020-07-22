@@ -2,7 +2,7 @@ import unicodedata
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 
 from .models import User, OK_STATUS
 
@@ -116,3 +116,18 @@ class CustomPasswordResetForm(PasswordResetForm):
             if u.has_usable_password() and
             _unicode_ci_compare(email, getattr(u, 'email'))
         )
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get('new_password1')
+        password2 = self.cleaned_data.get('new_password2')
+
+        if password1 and password2:
+            if password1 != password2:
+                raise ValidationError(
+                    self.error_messages['password_mismatch'],
+                    code='password_mismatch',
+                )
+
+        return password2

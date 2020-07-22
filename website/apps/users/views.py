@@ -1,9 +1,11 @@
 from datetime import datetime
 import json
 
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -17,7 +19,7 @@ from website.apps.news.use_cases import get_all_news
 from website.apps.ranking.use_cases import get_guilds_ranking, get_players_ranking
 
 from .models import User, OK_STATUS
-from .forms import CustomPasswordResetForm, RegisterForm
+from .forms import CustomPasswordChangeForm, CustomPasswordResetForm, RegisterForm
 
 
 class HomeView(View):
@@ -122,3 +124,7 @@ class CustomPasswordResetView(PasswordResetView):
         kwargs['data'] = json.loads(self.request.body)
 
         return kwargs
+
+
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    form_class = CustomPasswordChangeForm
